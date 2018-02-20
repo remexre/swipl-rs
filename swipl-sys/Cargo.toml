@@ -1,0 +1,13 @@
+[package]
+authors = ["Nathan Ringo <remexre@gmail.com>"]
+build = "build.rs"
+description = "Low-level bindings to SWI Prolog"
+homepage = "https://github.com/remexre/swipl-rs"
+license = "Apache-2.0/MIT"
+name = "swipl-sys"
+repository = "https://github.com/remexre/swipl-rs"
+version = "0.1.0"
+
+[build-dependencies]
+bindgen = "0.33.1"
+pkg-config = "0.3.9"

@@ -1,0 +1,6 @@
+.*
+!.gitignore
+!.travis.yml
+
+target/
+Cargo.lock

@@ -1,0 +1,14 @@
+[workspace]
+members = ["swipl-sys"]
+
+[package]
+authors = ["Nathan Ringo <remexre@gmail.com>"]
+description = "Bindings to SWI Prolog."
+homepage = "https://github.com/remexre/swipl-rs"
+license = "Apache-2.0/MIT"
+name = "swipl"
+repository = "https://github.com/remexre/swipl-rs"
+version = "0.1.0"
+
+[dependencies]
+swipl-sys = "0.1.0"
