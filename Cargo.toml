@@ -10,5 +10,10 @@ name = "swipl"
 repository = "https://github.com/remexre/swipl-rs"
 version = "0.1.0"
 
+[badges]
+travis-ci = { repository = "remexre/swipl-rs" }
+
 [dependencies]
-swipl-sys = "0.1.0"
+failure = "0.1.1"
+failure_derive = "0.1.1"
+swipl-sys = { path = "swipl-sys", version = "0.2.0" }
