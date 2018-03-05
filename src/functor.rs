@@ -57,15 +57,12 @@ mod tests {
 
     #[test]
     fn display() {
-        panic!("{}", "foo");
-        //let foo = Atom::new("foo").functor(1);
-        //let bar = Atom::new("bar").functor(2);
-        //let baz = Atom::new("baz").functor(0);
+        let foo = Atom::new("foo").functor(1);
+        let bar = Atom::new("bar").functor(2);
+        let baz = Atom::new("baz").functor(0);
 
-        /*
         assert_eq!(foo.to_string(), "foo/1");
         assert_eq!(bar.to_string(), "bar/2");
         assert_eq!(baz.to_string(), "baz/0");
-        */
     }
 }

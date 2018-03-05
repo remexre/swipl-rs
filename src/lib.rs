@@ -4,13 +4,17 @@
 extern crate failure;
 #[macro_use]
 extern crate failure_derive;
+#[macro_use]
+extern crate lazy_static;
 extern crate swipl_sys;
 
 mod atom;
 mod functor;
 
+use std::cell::RefCell;
 use std::os::raw::c_int;
-use std::ptr::null;
+use std::ptr::{null, null_mut};
+use std::sync::Mutex;
 
 pub use atom::Atom;
 pub use functor::Functor;
@@ -29,13 +33,30 @@ pub enum Error {
 ///
 /// This will automatically be called in most cases.
 pub fn init() {
-    use std::sync::atomic::{AtomicBool, Ordering, ATOMIC_BOOL_INIT};
+    use swipl_sys::{PL_initialise, PL_thread_attach_engine};
 
-    use swipl_sys::PL_initialise;
+    lazy_static!{
+        static ref SWIPL_INITED_GLOBAL: Mutex<bool> = Mutex::new(false);
+    }
+    thread_local! {
+        static SWIPL_INITED_THREAD: RefCell<bool> = RefCell::new(false);
+    }
 
-    static SWIPL_INITED: AtomicBool = ATOMIC_BOOL_INIT;
-    if !SWIPL_INITED.compare_and_swap(false, true, Ordering::SeqCst) {
+    let mut swipl_inited_global = SWIPL_INITED_GLOBAL.lock().unwrap();
+    if !*swipl_inited_global {
         let args = [b"swipl\0".as_ptr(), b"-q\0".as_ptr(), null()].as_ptr();
         unsafe { PL_initialise(2, args as *mut *mut i8) };
+        *swipl_inited_global = true;
+        SWIPL_INITED_THREAD.with(|swipl_inited_thread| {
+            *swipl_inited_thread.borrow_mut() = true;
+        })
     }
+
+    SWIPL_INITED_THREAD.with(|swipl_inited_thread| {
+        let mut swipl_inited_thread = swipl_inited_thread.borrow_mut();
+        if !*swipl_inited_thread {
+            unsafe { PL_thread_attach_engine(null_mut()) };
+            *swipl_inited_thread = true;
+        }
+    });
 }

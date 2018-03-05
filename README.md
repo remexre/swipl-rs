@@ -5,6 +5,10 @@
 
 Rust bindings to SWI Prolog.
 
+## Runtime Instructions
+
+The `SWI_HOME` environment variable must be set to the location of the SWI Prolog installation, for example `/usr/lib/swipl-7.6.4`.
+
 ## License
 
 Licensed under either of

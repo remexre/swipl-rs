@@ -91,13 +91,15 @@ mod tests {
         let bar = Atom::new("bar");
         let baz = Atom::new("baz");
 
-        assert_eq!(format!("{:?}", foo), "foo");
-        assert_eq!(format!("{:?}", bar), "bar");
-        assert_eq!(format!("{:?}", baz), "baz");
+        assert_eq!(format!("{:?}", foo), "Atom(\"foo\")");
+        assert_eq!(format!("{:?}", bar), "Atom(\"bar\")");
+        assert_eq!(format!("{:?}", baz), "Atom(\"baz\")");
     }
 
     #[test]
     fn display() {
+        use std::io::Write;
+        ::std::io::stdout().flush().unwrap();
         let foo = Atom::new("foo");
         let bar = Atom::new("bar");
         let baz = Atom::new("baz");

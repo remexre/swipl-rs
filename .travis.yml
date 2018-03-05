@@ -6,6 +6,8 @@ rust:
 os:
   - linux
   - osx
+env:
+  - SWI_HOME=/usr/lib/swipl-7.6.4
 
 script:
   - cargo test --all

@@ -17,3 +17,4 @@ travis-ci = { repository = "remexre/swipl-rs" }
 failure = "0.1.1"
 failure_derive = "0.1.1"
 swipl-sys = { path = "swipl-sys", version = "0.2.0" }
+lazy_static = "1.0.0"

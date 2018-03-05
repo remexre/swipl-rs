@@ -85,6 +85,7 @@ fn build_swipl<P: AsRef<Path>>(out_path: P) {
         .arg("configure")
         .arg("--without-jpl")
         .current_dir(out_path.join(SWIPL_SRC_DIR))
+        .env("CFLAGS", "-g")
         .status()
         .expect("Failed to start configuring SWIPL");
     assert!(status.success(), "Failed to configure SWIPL");
